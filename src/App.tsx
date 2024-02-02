@@ -2,8 +2,16 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 import { Component } from "./Component";
+import { usePashexHook } from "./react-pashex";
 
 function App() {
+  const state = usePashexHook();
+  console.log("state", state.getState());
+
+  const handleClick = () => {
+    state.changeState({ date: new Date().getTime() });
+  };
+
   return (
     <>
       <div>
@@ -17,6 +25,7 @@ function App() {
       <h1>Vite + React</h1>
       <div className="card">
         {/* <button onClick={handleClick}>count is {amount?.state?.amount}</button> */}
+        <button onClick={handleClick}>{"click"}</button>
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
@@ -24,7 +33,7 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
-      <Component>{"QW"}</Component>
+      <Component>{state.getState()?.date}</Component>
     </>
   );
 }
